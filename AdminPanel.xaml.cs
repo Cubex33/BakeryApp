@@ -12,10 +12,17 @@ namespace SP1
             InitializeComponent();
             CreateCategoryData();
         }
-
         public void CreateCategoryData()
         {
             var products = dbContext.Products.ToList();
+            var productText = new Label
+            {
+                Text = "Продукты на складе: ",
+                FontSize = 25,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            MainLayout.Children.Add(productText);
 
             foreach (var product in products)
             {
@@ -29,13 +36,13 @@ namespace SP1
 
                 var productName = new Label
                 {
-                    Text = product.Name,
+                    Text = $"{product.Name}. Цена: {(int)product.Price} ₸",
                     FontSize = 18,
-                    FontAttributes = FontAttributes.Bold
+                    FontAttributes = FontAttributes.Bold,
+                    HorizontalTextAlignment = TextAlignment.Center
                 };
 
                 frame.Content = productName;
-
                 MainLayout.Children.Add(frame);
             }
         }

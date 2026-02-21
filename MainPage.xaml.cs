@@ -7,6 +7,7 @@ namespace SP1
     {
         public BakeryDbContext dbContext = new BakeryDbContext();
 
+
         public MainPage()
         {
             InitializeComponent();

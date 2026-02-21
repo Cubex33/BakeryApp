@@ -14,7 +14,6 @@ namespace SP1
             InitializeComponent();
             CreateProductCatalog();
         }
-
         public void CreateProductCatalog()
         {
             FlexLayoutContainer.Children.Clear();
@@ -52,7 +51,7 @@ namespace SP1
                     {
                         chooseText = new Label
                         {
-                            Text = $"Вы выбрали {item.Name} за {prise}₸ в количестве {quantity} шт.",
+                            Text = $"Вы выбрали {item.Name} за {prise} ₸ в количестве {quantity} шт.",
                             FontSize = 16,
                             Margin = new Thickness(0, 2)
                         };
@@ -60,7 +59,7 @@ namespace SP1
                     }
                     else
                     {
-                        chooseText.Text = $"Вы выбрали {item.Name} за {prise}₸ в количестве {quantity} шт.";
+                        chooseText.Text = $"Вы выбрали {item.Name} за {prise} ₸ в количестве {quantity} шт.";
                     }
                 };
 
