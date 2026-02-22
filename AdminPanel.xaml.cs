@@ -10,42 +10,16 @@ namespace SP1
         public AdminPanel()
         {
             InitializeComponent();
-            CreateCategoryData();
         }
-        public void CreateCategoryData()
+
+        private async void CassaOpenButton(object? sender, EventArgs e)
         {
-            var products = dbContext.Products.ToList();
-            var productText = new Label
-            {
-                Text = "Продукты на складе: ",
-                FontSize = 25,
-                FontAttributes = FontAttributes.Bold,
-                HorizontalTextAlignment = TextAlignment.Center
-            };
-            MainLayout.Children.Add(productText);
-
-            foreach (var product in products)
-            {
-                var frame = new Frame
-                {
-                    BorderColor = Colors.Gray,
-                    CornerRadius = 10,
-                    Padding = 10,
-                    Margin = new Thickness(0, 5)
-                };
-
-                var productName = new Label
-                {
-                    Text = $"{product.Name}. Цена: {(int)product.Price} ₸",
-                    FontSize = 18,
-                    FontAttributes = FontAttributes.Bold,
-                    HorizontalTextAlignment = TextAlignment.Center
-                };
-
-                frame.Content = productName;
-                MainLayout.Children.Add(frame);
-            }
+            await Navigation.PushAsync(new Cassa());
         }
 
+        private async void OrderOpenButton(object? sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Report());
+        }
     }
 }

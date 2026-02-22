@@ -6,6 +6,8 @@ namespace SP1
     {
         public BakeryDbContext dbContext = new BakeryDbContext();
 
+        bool isOpenPanel;
+
         private Dictionary<int, (int quantity, int price, int Id, int prise)> selectedItems = new();
 
         public Cassa()
@@ -44,8 +46,9 @@ namespace SP1
                 {
                     prise = (int)item.Price;
 
-                    if (chooseText == null)
+                    if (chooseText == null || !isOpenPanel)
                     {
+                        isOpenPanel = true;
                         string qualityTextInput = await DisplayPromptAsync(
                              title: $"Действия для товара '{item.Name}'",
                              message: null,
@@ -58,6 +61,7 @@ namespace SP1
                         {
                             if(int.TryParse(qualityTextInput, out var quality) && quality > 0)
                             {
+                                isOpenPanel = false;
                                 var horizontalGroup = new HorizontalStackLayout
                                 {
                                     Spacing = 20
