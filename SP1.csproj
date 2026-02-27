@@ -77,6 +77,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UserRegister.xaml.cs">
+	    <DependentUpon>UserRegister.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Report.xaml.cs">
 	    <DependentUpon>Report.xaml</DependentUpon>
 	  </Compile>
@@ -89,6 +92,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="UserRegister.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Report.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

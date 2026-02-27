@@ -1,5 +1,6 @@
 ﻿using BakeryApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SP1
 {
@@ -20,6 +21,11 @@ namespace SP1
         private async void OrderOpenButton(object? sender, EventArgs e)
         {
             await Navigation.PushAsync(new Report());
+        }
+
+        private async void UserOpenButton(object? sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UserRegister());
         }
     }
 }
