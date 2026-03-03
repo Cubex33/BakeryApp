@@ -1,5 +1,6 @@
 ﻿using BakeryApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace SP1
 {
@@ -135,17 +136,30 @@ namespace SP1
                     return;
                 }
 
-                label.Text = $"{customer.Id}. {customer.FirstName} {customer.LastName} номер: {customer.Phone} почта: {customer.Email}. Скидка: {discountValue} %";
-
-                var discount = new Discount
+                var existing = dbContext.Discounts.FirstOrDefault(d => d.CustomerId == customer.Id);
+                if (existing != null)
                 {
-                    CustomerId = customer.Id,
-                    Discount1 = discountValue,
-                    Activation = 1
-                };
+                    existing.Discount1 = discountValue;
+                }
+                else
+                {
+                    dbContext.Discounts.Add(new Discount
+                    {
+                        CustomerId = customer.Id,
+                        Discount1 = discountValue,
+                        Activation = 1
+                    });
+                }
 
-                dbContext.Discounts.Add(discount);
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    await dbContext.SaveChangesAsync();
+                    await DisplayAlertAsync("Успех", $"Скидка успешно измена для {customer.FirstName} {customer.LastName}", "Ok");
+                    label.Text = $"{customer.Id}. {customer.FirstName} {customer.LastName} номер: {customer.Phone} почта: {customer.Email}. Скидка: {discountValue} %";
+                }
+                catch (Exception ex) {
+                    await DisplayAlertAsync("Ошибка", $"Ошибка: {ex.InnerException?.Message ?? ex.Message}", "Ok");
+                }
             }
         }
     }

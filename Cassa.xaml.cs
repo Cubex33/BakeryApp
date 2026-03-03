@@ -174,15 +174,36 @@ namespace SP1
                 dbContext.Orders.Add(newOrder);
                 await dbContext.SaveChangesAsync();
 
-                foreach (var item in itemsToOrder)
-                {
-                    dbContext.OrderItems.Add(new OrderItem
+                var discount = dbContext.Discounts.FirstOrDefault(d => d.CustomerId == newOrder.CustomerId);
+                if (discount != null) {
+                    foreach (var item in itemsToOrder)
                     {
-                        OrderId = newOrder.Id,
-                        ProductId = item.Id,
-                        Quantity = item.quantity,
-                        Price = item.prise
-                    });
+                        int prices = item.prise;
+                        if (prices != null)
+                        {
+                            prices -= prices * (discount.Discount1 ?? 0) / 100;
+                        }
+                        dbContext.OrderItems.Add(new OrderItem
+                        {
+                            OrderId = newOrder.Id,
+                            ProductId = item.Id,
+                            Quantity = item.quantity,
+                            Price = prices
+                        });
+                    }
+                }
+                else
+                {
+                    foreach (var item in itemsToOrder)
+                    {
+                        dbContext.OrderItems.Add(new OrderItem
+                        {
+                            OrderId = newOrder.Id,
+                            ProductId = item.Id,
+                            Quantity = item.quantity,
+                            Price = item.prise
+                        });
+                    }
                 }
 
                 await dbContext.SaveChangesAsync();
