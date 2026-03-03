@@ -19,6 +19,8 @@ public partial class BakeryDbContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<Discount> Discounts { get; set; }
+
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -37,11 +39,11 @@ public partial class BakeryDbContext : DbContext
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__categori__3213E83FA9B663A1");
+            entity.HasKey(e => e.Id).HasName("PK__categori__3213E83F10DD9068");
 
             entity.ToTable("categories");
 
-            entity.HasIndex(e => e.Name, "UQ__categori__72E12F1B601282DF").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__categori__72E12F1BE4285F0A").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
@@ -52,11 +54,11 @@ public partial class BakeryDbContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__customer__3213E83F39231C75");
+            entity.HasKey(e => e.Id).HasName("PK__customer__3213E83F8EF99DE5");
 
             entity.ToTable("customers");
 
-            entity.HasIndex(e => e.Phone, "UQ__customer__B43B145F9E95E282").IsUnique();
+            entity.HasIndex(e => e.Phone, "UQ__customer__B43B145F481D04E9").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Email)
@@ -77,9 +79,16 @@ public partial class BakeryDbContext : DbContext
                 .HasColumnName("phone");
         });
 
+        modelBuilder.Entity<Discount>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC07830C5141");
+
+            entity.ToTable("Discount");
+        });
+
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__employee__3213E83F25A2FCD0");
+            entity.HasKey(e => e.Id).HasName("PK__employee__3213E83FE9903361");
 
             entity.ToTable("employees");
 
@@ -104,7 +113,7 @@ public partial class BakeryDbContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__orders__3213E83F06B652C9");
+            entity.HasKey(e => e.Id).HasName("PK__orders__3213E83F9E1550E6");
 
             entity.ToTable("orders");
 
@@ -133,7 +142,7 @@ public partial class BakeryDbContext : DbContext
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => new { e.OrderId, e.ProductId }).HasName("PK__order_it__022945F6DB1948CF");
+            entity.HasKey(e => new { e.OrderId, e.ProductId }).HasName("PK__order_it__022945F6B005BDA0");
 
             entity.ToTable("order_items", tb => tb.HasTrigger("trg_update_order_total"));
 
@@ -156,7 +165,7 @@ public partial class BakeryDbContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__products__3213E83F6ACDE53E");
+            entity.HasKey(e => e.Id).HasName("PK__products__3213E83F4EF30F15");
 
             entity.ToTable("products");
 
